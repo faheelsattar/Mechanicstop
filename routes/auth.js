@@ -20,27 +20,26 @@ router.post('/register', async (req,res)=>{
     return res.status(400).send(error.details[0].message);
     const username= req.body.username;
     const emailexists= `select username from _users where username ='${username}'`;
-   await connection.query(emailexists, async (err, result)=>{
-        if(err){
-           return res.send(err);
-        }else{
+    const result= await connection.query(emailexists)
+    try{
             if(result== ''){
                 const salt= await bcrypt.genSalt(10);
                 const hashedpass = await bcrypt.hash(req.body.password, salt);
                 const password= hashedpass;
                 const insertuser= `insert into _users (username,password) values('${username}', '${password}')`;
-                await  connection.query(insertuser, (err,result)=>{
-                    if(err){
+                connection.query(insertuser, (err,result)=>{
+                    if(err){                                                                         
                        return res.send(err);
                     }else{
-                        res.send(`'${username} is added'`);
+                       return res.send(`'${username} is added'`);
                   }
                 }) 
             }else{
-                res.status(400).send('Email already exists');
+               return res.status(400).send('Email already exists');
             }
-        }
-    })
+        }catch(err){
+            res.send(err)
+        }      
 })
 
 router.post('/login', async(req,res)=>{
@@ -50,11 +49,8 @@ router.post('/login', async(req,res)=>{
     const username= req.body.username;
     const password= req.body.password;
     const emailexists= `select userId,userName,password from _users where username ='${username}'`;
-  await connection.query(emailexists, async (err,result)=>{
-    if(err){
-       return res.send(err);
-    }   
-    else{
+  try{
+    const result=await connection.query(emailexists)
         if(result==''){
             return res.status(400).send('Email doesnot exists');
         }else{
@@ -66,10 +62,10 @@ router.post('/login', async(req,res)=>{
                 res.header('auth-token', token).send(token)
             }
         }
+    }catch(err){
+        res.send(err)
     }
-    })
-
-}) 
+})
 
 router.post('/addworkers',tokenVerification, async(req,res)=>{
         worker=new Workers(req.body.firstname,req.body.lastname, req.body.phoneno)
@@ -77,11 +73,11 @@ router.post('/addworkers',tokenVerification, async(req,res)=>{
     try{
         const result= await connection.query(workerchecker)
         if(result){
-            res.status(400).send('Worker already exists')
+           return res.status(400).send('Worker already exists')
         }else{
         const addworker = `insert into workers (workerid, name, phoneno, status) values (,${worker.getName},${worker.getPhoneNo},${worker.getStatus})`
         const result1=await connection.query(addworker)   
-        res.status(200).send("Worker is registered successfully")   
+           return res.status(200).send("Worker is registered successfully")   
         }
     }catch(err){
         res.send(err)

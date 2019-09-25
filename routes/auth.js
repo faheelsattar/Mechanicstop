@@ -67,7 +67,7 @@ router.post('/login', async(req,res)=>{
     }
 })
 
-router.post('/addworkers',tokenVerification, async(req,res)=>{
+router.post('/addworkers', async(req,res)=>{
         worker=new Workers(req.body.firstname,req.body.lastname, req.body.phoneno)
         const workerchecker=`select phoneno from workers where phoneno=${req.body.phoneno}`
     try{
@@ -82,6 +82,31 @@ router.post('/addworkers',tokenVerification, async(req,res)=>{
     }catch(err){
         res.send(err)
     }   
+})
+
+router.post('/mechanicrequest', async(req,res)=>{
+    const userid=req.body.userid
+    const vehicletype= req.body.vehicle
+    const vehiclename= req.body.vehiclename
+    const model= req.body.model
+    const companyid=req.body.companyid
+    const location={
+        'latitude':req.body.latitude,
+        'longitude':req.body.longitude,
+        'address':req.body.address
+    }
+    const mechanicrequest=`insert into mechanic_requests (userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime)
+     values(${userid},${companyid},${vehicletype},${vehiclename},${model},${location.latitude},${location.longitude},${location.address})`
+    try{
+     const result= await connection.query(mechanicrequest)
+    }catch(err){
+        return res.send(err)
+    }
+})
+router.post('./userrequests',async(req,res)=>{
+    const userid=req.body.userid
+    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime from mechanic_requests where userid= ${userid}`
+    const 
 })
 
 router.get('/post', tokenVerification, (req,res)=>{

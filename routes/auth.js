@@ -77,7 +77,7 @@ router.post('/addworkers', async(req,res)=>{
         }else{
         const addworker = `insert into workers (workerid, name, phoneno, status) values (,${worker.getName},${worker.getPhoneNo},${worker.getStatus})`
         const result1=await connection.query(addworker)   
-           return res.status(200).send("Worker is registered successfully")   
+         return res.status(200).send("Worker is registered successfully")   
         }
     }catch(err){
         res.send(err)
@@ -99,14 +99,21 @@ router.post('/mechanicrequest', async(req,res)=>{
      values(${userid},${companyid},${vehicletype},${vehiclename},${model},${location.latitude},${location.longitude},${location.address})`
     try{
      const result= await connection.query(mechanicrequest)
+     return res.status(200).send("Request is sent to the mechanic") 
     }catch(err){
         return res.send(err)
     }
 })
-router.post('./userrequests',async(req,res)=>{
+router.post('/userrequests',async(req,res)=>{
     const userid=req.body.userid
-    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime from mechanic_requests where userid= ${userid}`
-    const 
+    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime 
+    from mechanic_requests where userid= ${userid} order by datetime desc`
+    try{
+    const userrequests= await connection.query(getuserrequests)
+    return res.status(200).send(userrequests) 
+    }catch(err){
+        return res.send(err)
+    }
 })
 
 router.get('/post', tokenVerification, (req,res)=>{

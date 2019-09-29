@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const {regValidation , loginValidation} = require('../validation');
 const {tokenVerification} = require('../middlewares/tokenauth');
 import Workers from '../classes/Workers'
+import { get } from 'http';
 dotenv.config();
 const connection = mysql.createConnection({
      host: 'localhost',
@@ -75,9 +76,9 @@ router.post('/addworkers', async(req,res)=>{
         if(result){
            return res.status(400).send('Worker already exists')
         }else{
-        const addworker = `insert into workers (workerid, name, phoneno, status) values (,${worker.getName},${worker.getPhoneNo},${worker.getStatus})`
+        const addworker = `insert into workers (workerid, name, companyid, phoneno, status) values (,${worker.getName},,${worker.getPhoneNo},${worker.getStatus})`
         const result1=await connection.query(addworker)   
-         return res.status(200).send("Worker is registered successfully")   
+         res.status(200).send("Worker is registered successfully")   
         }
     }catch(err){
         res.send(err)
@@ -99,23 +100,48 @@ router.post('/mechanicrequest', async(req,res)=>{
      values(${userid},${companyid},${vehicletype},${vehiclename},${model},${location.latitude},${location.longitude},${location.address})`
     try{
      const result= await connection.query(mechanicrequest)
-     return res.status(200).send("Request is sent to the mechanic") 
+     res.status(200).send("Request is sent to the mechanic") 
     }catch(err){
         return res.send(err)
     }
 })
-router.post('/userrequests',async(req,res)=>{
-    const userid=req.body.userid
-    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime 
-    from mechanic_requests where userid= ${userid} order by datetime desc`
+router.get('/requests/:userid',async(req,res)=>{
+    const userid=req.params.userid
+    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, 
+     latitude, longitude, location_address, status, datetime 
+    from mechanic_requests where userid=${userid} or companyid=${userid} order by datetime desc`
     try{
     const userrequests= await connection.query(getuserrequests)
-    return res.status(200).send(userrequests) 
+    res.status(200).send(userrequests) 
     }catch(err){
         return res.send(err)
     }
 })
-
+router.put('userrequesttomechanic',async(req,res)=>{
+    const companyid= req.body.companyid
+    const choice= req.body.choice
+    const userid= req.body.userid
+    try{
+    if(choice == true){
+    const workersname = req.body.workersname
+    const workersphone = req.body.workersphone
+    const companyrequests=`update mechanic_requests Set status=${choice} where userid= ${userid} and status=NULL`
+    const updatecompanyrequests = await connection.query(companyrequests)
+    const workers= `update workers Set status=True where name=${workersname} and phoneno=${workersphone} and companyid=${companyid} `
+    const workerupdate = await connection.query(workers)
+    res.status(200).send(`Status is true for ${workersname}`)
+    }else{
+        const companyrequests=`update mechanic_requests Set status=${choice} where userid= ${userid} and status=NULL`
+        const updatecompanyrequests = await connection.query(companyrequests)
+        res.status(200).send('User Request as been rejected')    
+    }  
+    }catch(err){
+        return res.send(err)
+    }
+})
+router.get('availablemechanics',async(req,res)=>{
+    const available=`select companyname from mechanics where status=`
+})
 router.get('/post', tokenVerification, (req,res)=>{
     res.send('Its my first post')
 })

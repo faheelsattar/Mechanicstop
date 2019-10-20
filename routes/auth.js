@@ -3,10 +3,9 @@ const mysql = require('mysql');
 const dotenv= require('dotenv');
 const bcrypt= require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {regValidation , loginValidation} = require('../validation');
 const {tokenVerification} = require('../middlewares/tokenauth');
-import Workers from '../classes/Workers'
-import { get } from 'http';
+const {userChecker}=require('../middlewares/validators')
+const {companyChecker}=require('../middlewares/validators')
 dotenv.config();
 const connection = mysql.createConnection({
      host: 'localhost',
@@ -15,32 +14,40 @@ const connection = mysql.createConnection({
      database:process.env.Db_Database
 })
 
-router.post('/register', async (req,res)=>{
-    const {error}= regValidation(req.body);
-    if(error)
-    return res.status(400).send(error.details[0].message);
-    const username= req.body.username;
-    const emailexists= `select username from _users where username ='${username}'`;
-    const result= await connection.query(emailexists)
+router.post('/register/user',userChecker, async(req,res)=>{
+    const user_id= req.body.email
+    const name= req.body.name
+    const phone_no=req.body.phoneno
     try{
-            if(result== ''){
-                const salt= await bcrypt.genSalt(10);
-                const hashedpass = await bcrypt.hash(req.body.password, salt);
-                const password= hashedpass;
-                const insertuser= `insert into _users (username,password) values('${username}', '${password}')`;
-                connection.query(insertuser, (err,result)=>{
-                    if(err){                                                                         
-                       return res.send(err);
-                    }else{
-                       return res.send(`'${username} is added'`);
-                  }
-                }) 
-            }else{
-               return res.status(400).send('Email already exists');
-            }
-        }catch(err){
-            res.send(err)
-        }      
+        const salt= await bcrypt.genSalt(10);
+        const hashedpass = await bcrypt.hash(req.body.password, salt);
+        const password= hashedpass;
+        const user= `insert into users(user_id,name,phone_no,passcode)values('${user_id}','${name}','${phone_no}','${password}')`
+        const result=await connection.query(user)
+        return res.status(200).send(`'${user_id}' is registered `)
+    }catch(err){
+        return res.send(err)
+    }
+})
+
+router.post('/register/mechaniccompany',companyChecker, async(req,res)=>{
+    const company_id= req.body.email
+    const company_name= req.body.name
+    const latitude=req.body.latitude
+    const longitude= req.body.longitude
+    const phone_no=req.body.phoneno
+    const status= req.body.status
+    try{
+        const salt= await bcrypt.genSalt(10);
+        const hashedpass = await bcrypt.hash(req.body.password, salt);
+        const password= hashedpass;
+        const company= `insert into mechanic_company(company_id,company_name,latitude,longitude,passcode,status,phone_no)
+        values('${company_id}','${company_name}','${latitude}','${longitude}','${password}','${status}','${phone_no}')`
+        const result=await connection.query(company)
+        return res.status(200).send(`'${company_id}' is added`)
+    }catch(err){
+        return res.send(err)
+    }
 })
 
 router.post('/login', async(req,res)=>{
@@ -68,81 +75,30 @@ router.post('/login', async(req,res)=>{
     }
 })
 
-router.post('/addworkers', async(req,res)=>{
-        worker=new Workers(req.body.firstname,req.body.lastname, req.body.phoneno)
-        const workerchecker=`select phoneno from workers where phoneno=${req.body.phoneno}`
+router.post('/login/worker',async(req,res)=>{
+    const phoneno= req.body.workersphone;
+    const password= req.body.password;
+    const worker= `select workerid, name, phoneno,companyid from workers where phoneno ='${phoneno}'`;
     try{
-        const result= await connection.query(workerchecker)
-        if(result){
-           return res.status(400).send('Worker already exists')
-        }else{
-        const addworker = `insert into workers (workerid, name, companyid, phoneno, status) values (,${worker.getName},,${worker.getPhoneNo},${worker.getStatus})`
-        const result1=await connection.query(addworker)   
-         res.status(200).send("Worker is registered successfully")   
+        const result=await connection.query(worker)
+            if(result==''){
+                return res.status(400).send('phoneno doesnot exists');
+            }else{
+                const checker= await bcrypt.compare(password,result[0].password);
+                if(!checker){
+                   return res.status(400).send('Wrong password');
+                }else{
+                    const token = await jwt.sign({'id': result[0].workerid}, process.env.Secret_Key, { expiresIn: '1h' });
+                    res.header('auth-token', token).send(token)
+                }
+            }
+        }catch(err){
+            res.send(err)
         }
-    }catch(err){
-        res.send(err)
-    }   
 })
 
-router.post('/mechanicrequest', async(req,res)=>{
-    const userid=req.body.userid
-    const vehicletype= req.body.vehicle
-    const vehiclename= req.body.vehiclename
-    const model= req.body.model
-    const companyid=req.body.companyid
-    const location={
-        'latitude':req.body.latitude,
-        'longitude':req.body.longitude,
-        'address':req.body.address
-    }
-    const mechanicrequest=`insert into mechanic_requests (userid, companyid, vehicletype, vehiclename, model, latitude, longitude, location_address, status, datetime)
-     values(${userid},${companyid},${vehicletype},${vehiclename},${model},${location.latitude},${location.longitude},${location.address})`
-    try{
-     const result= await connection.query(mechanicrequest)
-     res.status(200).send("Request is sent to the mechanic") 
-    }catch(err){
-        return res.send(err)
-    }
-})
-router.get('/requests/:userid',async(req,res)=>{
-    const userid=req.params.userid
-    const getuserrequests=`select userid, companyid, vehicletype, vehiclename, model, 
-     latitude, longitude, location_address, status, datetime 
-    from mechanic_requests where userid=${userid} or companyid=${userid} order by datetime desc`
-    try{
-    const userrequests= await connection.query(getuserrequests)
-    res.status(200).send(userrequests) 
-    }catch(err){
-        return res.send(err)
-    }
-})
-router.put('userrequesttomechanic',async(req,res)=>{
-    const companyid= req.body.companyid
-    const choice= req.body.choice
-    const userid= req.body.userid
-    try{
-    if(choice == true){
-    const workersname = req.body.workersname
-    const workersphone = req.body.workersphone
-    const companyrequests=`update mechanic_requests Set status=${choice} where userid= ${userid} and status=NULL`
-    const updatecompanyrequests = await connection.query(companyrequests)
-    const workers= `update workers Set status=True where name=${workersname} and phoneno=${workersphone} and companyid=${companyid} `
-    const workerupdate = await connection.query(workers)
-    res.status(200).send(`Status is true for ${workersname}`)
-    }else{
-        const companyrequests=`update mechanic_requests Set status=${choice} where userid= ${userid} and status=NULL`
-        const updatecompanyrequests = await connection.query(companyrequests)
-        res.status(200).send('User Request as been rejected')    
-    }  
-    }catch(err){
-        return res.send(err)
-    }
-})
-router.get('availablemechanics',async(req,res)=>{
-    const available=`select companyname from mechanics where status=`
-})
 router.get('/post', tokenVerification, (req,res)=>{
+    
     res.send('Its my first post')
 })
 

@@ -14,6 +14,7 @@ const connection = mysql.createConnection({
      database:process.env.Db_Database
 })
 
+//user register
 router.post('/register/user',userChecker, async(req,res)=>{
     const user_id= req.body.email
     const name= req.body.name
@@ -30,6 +31,7 @@ router.post('/register/user',userChecker, async(req,res)=>{
     }
 })
 
+//mechanic_compnay register
 router.post('/register/mechaniccompany',companyChecker, async(req,res)=>{
     const company_id= req.body.email
     const company_name= req.body.name
@@ -50,6 +52,7 @@ router.post('/register/mechaniccompany',companyChecker, async(req,res)=>{
     }
 })
 
+//incomplete route user login
 router.post('/login', async(req,res)=>{
     const {error}= loginValidation(req.body);
     if(error)
@@ -75,6 +78,7 @@ router.post('/login', async(req,res)=>{
     }
 })
 
+//worker login
 router.post('/login/worker',async(req,res)=>{
     const phoneno= req.body.workersphone;
     const password= req.body.password;

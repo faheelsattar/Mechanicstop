@@ -8,6 +8,7 @@ const connection = mysql.createConnection({
      database:process.env.Db_Database
 })
 
+//checking if the user already exists
 const userChecker=(req,res,next)=>{
     const user_id= req.body.email
     const userexist=`select user_id from users where user_id='${user_id}'` 
@@ -25,6 +26,7 @@ const userChecker=(req,res,next)=>{
     })
 }
 
+//checking if the company already exists
 const companyChecker=(req,res,next)=>{
     const company_id= req.body.email
     const companyexist=`select company_id from mechanic_company where company_id='${company_id}'` 
@@ -42,6 +44,7 @@ const companyChecker=(req,res,next)=>{
     })
 }
 
+//checking if the company registering a worker exists or not
 const companyChecker1=(req,res,next)=>{
     const company_id= req.body.email
     const companyexist=`select company_id from mechanic_company where company_id='${company_id}'` 
@@ -58,6 +61,7 @@ const companyChecker1=(req,res,next)=>{
     })
 }
 
+//checking if the worker exists
 const workerChecker=(req,res,next)=>{
     const phoneno = req.body.phoneno
     const company_id= req.body.email

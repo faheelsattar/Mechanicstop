@@ -1,0 +1,42 @@
+.navb2{
+    background-color: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 12px, rgba(0, 0, 0, 0.08) 0px 1px 2px;
+}
+.navb2 ul{
+    padding: 0;    
+}
+
+.navb2 ul li{
+    padding: 19px;
+    margin:1px;
+
+}
+.nav2link{
+    color: white;
+}
+
+.n{
+    position: relative;
+}
+
+.concept1{
+    width: 40px;
+    padding-right:10px;
+}
+
+.navitem2{
+    text-align: right
+}
+.navb2tg{
+    border: none
+}
+
+@media screen and (max-width: 770px) {
+    #main ul li {
+        display: block;
+        text-align: center;
+      }
+      .navbbr2{
+          margin-left: 0
+      }
+}

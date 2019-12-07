@@ -1,0 +1,14 @@
+.signupform{
+    margin-top: 10px;
+    border-radius: 0
+}
+.inpuser, .inpcomp{
+    border-radius: 0rem;
+    margin-top:10px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right:hidden;
+}
+.signupuserbtn, .signupcompanybtn{
+    margin-top:10px;
+}

@@ -1,0 +1,31 @@
+.steps{
+    width: 100%;
+    height: auto;
+}    
+.covercontent{
+    margin-top: 2%;
+    background-color: rgb(235, 235, 235);
+    margin-right:0px;
+    margin-left: 0px
+}
+
+.coverheading{
+    font-weight: bold;
+    word-spacing: 2px;
+    font-size: 3em;
+    color: black
+}
+.coverheadholder{
+    margin-top:80px;
+    margin-left: 8%
+}
+.home{
+    background-color: rgb(255, 255, 255)
+}
+
+@media screen and (max-width:600px){
+    .steps{
+        width: 100%;
+        height: auto;
+    }
+}

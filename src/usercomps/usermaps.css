@@ -1,0 +1,23 @@
+.sidebarStyle {
+    display: inline-block;
+    position: absolute;
+    margin: 12px;
+    background-color: grey;
+    color: #ffffff;
+    z-index: 1 !important;
+    padding: 6px;
+    font-weight: bold;
+    }
+     
+.maps{
+    position: relative;
+}
+
+.mapboxgl-popup-content{
+    background-color:rgba(255, 255, 255, 0.5) ;
+    box-shadow: 0 1px 2px rgb(0, 0, 0);
+}
+.icon-dc {
+    background: #253336;
+}
+

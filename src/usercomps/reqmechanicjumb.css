@@ -1,0 +1,13 @@
+.jumbotron1{
+    height: 570px;
+    background-image:-webkit-linear-gradient(5deg, rgba(228, 159, 31, 0.863) 0%, rgba(235, 25, 25, 0.836) 100%), url("/images/world.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+}
+.formrequest{
+    margin: auto;
+}
+.reqmechbtn{
+}

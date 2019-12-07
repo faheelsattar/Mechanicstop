@@ -1,0 +1,14 @@
+.loginform{
+    margin-top: 10px;
+    border-radius: 0
+}
+.email,.passcode, .phoneno{
+    border-radius: 0rem;
+    margin-top:10px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right:hidden;
+}
+.loginbtn{
+    margin-top:10px;
+}

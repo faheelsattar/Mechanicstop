@@ -1,0 +1,9 @@
+.logincover{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logoholder{
+    color:white;
+}

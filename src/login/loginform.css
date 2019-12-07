@@ -1,0 +1,31 @@
+.loginformholder{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+}
+.userloginbtn,.companyloginbtn,.workerloginbtn,.usersignupbtn,.companysignupbtn{
+    border: 1px solid #69677a;
+    border-radius: .25rem;
+    color: #393842;
+    padding: 18px 52px 14px;
+    text-align: center;
+    display: inline-block;
+    width: 20rem;
+}
+.userloginbtn:hover,.companyloginbtn:hover,.workerloginbtn:hover,.usersignupbtn:hover,.companysignupbtn:hover{
+    text-decoration: none;
+}
+.loginheading>h1{
+    font-weight: bold
+}
+.userlogin,.companylogin,.workerlogin,.usersignup,.companysignup,.signup,.login{
+    margin-top: 20px;
+}
+@media screen and (max-width:800px){
+    .loginformholder{
+        margin: 0px
+    }
+}

@@ -1,0 +1,34 @@
+.heading{
+    text-align: center;
+    color: black;
+    font-size: calc(40px + (56 - 40) * ((100vw - 300px) / (1600 - 300)));
+    font-weight: bolder;
+}
+.head{
+    background-image:-webkit-linear-gradient(5deg, #00467Fdc 0%, rgba(12, 240, 172, 0.836) 100%), url("/images/wallengine.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.img{
+    text-align: center;
+    padding-top: 100px;
+    border-style: none;    
+}
+.concept{
+    width:20%;
+    height: auto
+}
+
+.rotate {
+    animation: rotation 9s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+}
+

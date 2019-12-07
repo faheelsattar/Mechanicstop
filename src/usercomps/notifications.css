@@ -1,0 +1,69 @@
+.notificationholder{
+    position: absolute;
+    background-color: white;
+    right: 30%;
+    text-align: left;
+    z-index: 1
+}
+.uperarrow{
+    background-image: url("/images/upperarrowblack.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    height: 20px;
+    width:20px;
+    position: absolute;
+    left: 97.9%;
+    top:-10px
+}
+.notification{
+    justify-content: center;
+    border: 1px solid rgba(100, 100, 100, .4);
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+
+.notibody{
+    display: flex;
+    flex-wrap: wrap;
+}
+.noti{
+    padding-top: 17px;
+    padding-bottom: 17px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 1px solid rgb(242, 242, 247);
+    border-bottom: 1px solid rgb(242, 242, 247);
+    border-color: rgb(242, 242, 247);
+    width: 100%
+}
+.noticompany{
+    color: rgb(13, 13, 13);
+    display: flex;
+    align-items: center;
+}
+.toolimg{
+    display: flex;
+   /* height: 30px;*/
+   /* overflow: hidden;*/
+    border: 1px solid black
+}
+.notidate{
+    padding-left: 24px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+.noticompany h5{
+    padding-left:2px;
+    padding-top:7px 
+}
+
+@media screen and (min-width:700px){
+    .notificationholder{
+        width: 250%
+    }
+}

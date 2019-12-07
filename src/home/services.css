@@ -1,0 +1,52 @@
+.card2{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    height: 530px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 12px, rgba(0, 0, 0, 0.08) 0px 1px 2px;
+    border-radius: 8px;
+}
+.card2internal{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease-in;
+  background-color: rgb(255, 255, 255);
+}
+.card2:hover .card2internal{
+    opacity: 1;    
+}
+
+.car,.bike{
+    margin-top:30px
+}
+.row2{
+    margin-right:0px;
+    margin-left: 0px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.serviceheading{
+    font-weight: bold;
+    word-spacing: 2px;
+    font-size: 3em;
+    color: black
+}
+.service{
+    margin-top:50px
+}
+
+@media screen and (max-width:600px){
+    .card2{
+        height: 600px;
+    }
+    .car,.bike{
+        margin-top:0px
+    }
+}

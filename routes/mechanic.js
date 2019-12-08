@@ -58,10 +58,7 @@ router.get('/workers/:companyid&:status',async(req,res)=>{
          return res.json({
             Data:workers
         })
-    }catch(err){
-
-
-        
+    }catch(err){    
         return res.send(err)
     }
 })

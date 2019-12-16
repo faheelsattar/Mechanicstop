@@ -1,0 +1,38 @@
+.companycard1{
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    margin-left:15px;
+    margin-right: 15px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    margin-top: 30px
+}
+.companycards{
+
+}
+.companycard-holder{
+    position: relative;
+    color: #000000;
+    padding: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.companycard1 .companycard-holder .banner img {
+    max-width: 100%;
+    float: right;
+}
+
+@media (max-width: 575.98px){
+.col-xs-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+}

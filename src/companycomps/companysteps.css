@@ -1,0 +1,20 @@
+.companycarousel{
+    background-color: rgb(42, 93, 187);
+}
+.companycarouseltext{
+    color: white;
+}
+
+.companycarousel-item{
+  justify-content: center  
+}
+.companyheading{
+    font-weight: bold;
+    font-size: 3em;
+    color: rgb(255, 255, 255);
+    margin: 0 auto
+}
+.companyheadholder{
+    text-align: center;
+    margin-top: 50px
+}

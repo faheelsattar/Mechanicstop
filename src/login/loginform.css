@@ -15,7 +15,7 @@
     display: inline-block;
     width: 20rem;
 }
-.userloginbtn:hover,.companyloginbtn:hover,.workerloginbtn:hover,.usersignupbtn:hover,.companysignupbtn:hover{
+.userloginbtn:hover,.companyloginbtn:hover,.workerloginbtn:hover,.usersignupbtn:hover,.companysignupbtn:hover {
     text-decoration: none;
 }
 .loginheading>h1{

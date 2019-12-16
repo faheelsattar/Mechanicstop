@@ -25,7 +25,7 @@ class Notification extends React.Component{
                     <div className="toolimg">
                     <img src="/images/tools.png"/>
                     </div>
-                       <h5> Mechanic Company </h5>
+                    <h5> Mechanic Company </h5>
                     </div>
                     <div className="reviewtext">
                         <label>Status:</label> <i>Pending</i>

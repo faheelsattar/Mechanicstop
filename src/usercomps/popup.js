@@ -13,7 +13,7 @@ class Popup extends React.Component{
         </strong>
         <br/>
         <strong>
-            Duration: {this.props.duration} min
+            Duration: {Math.ceil(this.props.duration/60)} min
         </strong>
         <br/>
         <strong>

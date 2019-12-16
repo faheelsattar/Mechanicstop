@@ -1,6 +1,6 @@
 import React from 'react'
 import './userhome.css'
-import Navbar from './navbar'
+import Navbar from '../sharedcomps/navbar'
 import Reqmechanicjumb from './reqmechanicjumb'
 import Requestmechanics from './requestmechanics'
 import {BrowserRouter as Router, Switch,Route, link} from 'react-router-dom'

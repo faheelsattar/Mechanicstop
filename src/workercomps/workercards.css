@@ -1,0 +1,31 @@
+.workercardscontainer{
+}
+
+.worker-card{
+    display: flex;
+    padding: 3px;
+    width: 254px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    background-color: #fff;
+    background-clip: border-box;
+}
+.workercardscontainer{
+    margin-top: 30px;
+}
+
+.worker-card , .worker-card .worker-card-image img{
+    max-width: 100%;
+}
+
+.worker-card .worker-card-image{
+    margin-left: auto
+}
+.workercard1{
+    margin-bottom: 50px;
+}
+.workercard2{
+    margin-bottom: 50px
+}

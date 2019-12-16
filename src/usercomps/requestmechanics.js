@@ -6,18 +6,27 @@ class Requestmechanics extends React.Component{
     constructor(){
         super()
         this.state={
-            companyid:''
+            companyid:'',
+            latitude:'',
+            longitude:''
         }
     }
-    getCompanyId=(companyid)=>{
-        this.setState({companyid:companyid})
-        
+    getCompanyId=(companyid,latitude,longitude)=>{
+        this.setState({
+            companyid:companyid,
+            latitude:latitude,
+            longitude:longitude
+        }) 
     }
     render(){
         return(
             <div>
             <Usermaps company={this.getCompanyId}/>
-            <Requestmechanicform/>
+            <Requestmechanicform
+            companyid={this.state.companyid}
+            latitude={this.state.latitude}
+            longitude={this.state.longitude} 
+            />
             </div>
         )
     }

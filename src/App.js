@@ -2,14 +2,15 @@ import React from 'react'
 import Home from './home/home'
 import Login from './login/login'
 import Userhome from './usercomps/userhome'
-import Usermaps from './usercomps/usermaps'
+import Companyhome from './companycomps/companyhome'
+
 class App extends React.Component{
   constructor(){
     super()
   }
   render(){
     return(
-       <Userhome/>
+       <Companyhome/>
     )
   }
 }

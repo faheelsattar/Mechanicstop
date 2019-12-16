@@ -1,7 +1,6 @@
 import React from 'react'
 import './reqmechanicjumb.css'
-import {BrowserRouter as Router, Switch,Route, Link} from 'react-router-dom'
-import Requestmechanics from './requestmechanics'
+import {Link} from 'react-router-dom'
 
 class Reqmechanicjumb extends React.Component{
     render(){

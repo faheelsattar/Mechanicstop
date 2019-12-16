@@ -1,6 +1,5 @@
 import React from 'react'
 import './formlogin.css'
-import { async } from 'q';
 class Formlogin extends React.Component{
     constructor(props){
         super(props)
@@ -31,6 +30,8 @@ class Formlogin extends React.Component{
         try{
         const res= await fetch('http://localhost:4000/auth/login/user',options)
         const data= await res.json()
+        localStorage.setItem('Token',data.Token)
+        localStorage.setItem('Dealingwith',data.Dealingwith)
         console.log(data.Token)
         }catch(err){
             console.log(err)
@@ -55,6 +56,8 @@ class Formlogin extends React.Component{
         try{
         const res= await fetch('http://localhost:4000/auth/login/company',options)
         const data= await res.json()
+        localStorage.setItem('Token',data.Token)
+        localStorage.setItem('Dealingwith',data.Dealingwith)
         console.log(data.Token)
         }catch(err){
             console.log(err)
@@ -79,6 +82,8 @@ class Formlogin extends React.Component{
         try{
         const res= await fetch('http://localhost:4000/auth/login/worker',options)
         const data= await res.json()
+        localStorage.setItem('Token',data.Token)
+        localStorage.setItem('Dealingwith',data.Dealingwith)
         console.log(data.Token)
         }catch(err){
             console.log(err)

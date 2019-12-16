@@ -45,7 +45,7 @@ class Usermaps extends React.Component{
         companyid={companyid}
         address={address}
         call={companyid=>{
-            this.props.company(companyid)
+            this.props.company(companyid,this.state.lat,this.state.lng)
         }}
         />
     }

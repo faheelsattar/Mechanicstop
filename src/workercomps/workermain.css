@@ -1,0 +1,21 @@
+.workermain{
+    position: relative;
+    width: 100%
+}
+.workeroperations{
+    position: absolute; 
+    top:10%;
+    width: 80%;
+    left: 20%;
+    padding-top: 150px;
+    background-color: #f0f0f0;
+}
+.workerdetails{
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    background-color: #fff;
+    background-clip: border-box;
+    margin-top: 30px;
+    width: 80%;
+}

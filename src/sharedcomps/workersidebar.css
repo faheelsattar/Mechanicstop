@@ -1,0 +1,54 @@
+.workersidebar{
+    position: fixed;
+    box-shadow: 0 4px 25px 0 rgba(0,0,0,0.1);
+    height: 100%;
+    width: 20%;
+    background-color: #fff;
+    transition: width 1s ease,
+}
+
+.sidebaritem{
+    list-style: none;
+    margin-top: 20px;
+}
+
+.sidebaritem:hover{
+    background-color: #ebebeb
+}
+.sidebaritem a span{
+    padding-left: 10px;
+    transition: display 1s
+}
+
+.workersidebarholder{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top:20%;
+}
+
+.workersidebarmenu{
+    padding: 0;
+    margin: 0;
+}
+a.workerlink {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    margin: 0 auto;
+    width: 100%;
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer
+}
+
+@media(max-width:700px){
+    a.workerlink{
+        justify-content: center
+    }
+    .sidebaritem a span{
+        display: none
+    }
+}

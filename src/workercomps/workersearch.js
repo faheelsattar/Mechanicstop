@@ -1,7 +1,40 @@
 import React from 'react'
 import './workersearch.css'
+import data from '../home/cardsdata';
 class Workersearch extends React.Component{
+    constructor(props){
+      super(props)
+      this.state={
+        workers:[]
+      }
+      console.log(this.props.worker)
+    }
+    componentDidMount(){
+      this.getAllWorkers()
+  }
+
+  getAllWorkers=async()=>{
+      const host = localStorage.getItem("Host")
+      console.log(host)
+      try{
+      const res= await fetch(`http://localhost:4000/mechanic/workers?companyid=${host}`)
+      const data= await res.json()
+      console.log(data.Data)
+      this.setState({
+          workers:data.Data
+      })
+  }catch(err){
+      console.log(err)
+  }
+  }
     render(){
+      const workers = this.state.workers.map(data=>
+              <tr key={data.worker_phone}>
+                <td><p> {data.name} </p></td>
+                <td>{data.worker_phone}</td>
+                <td>{data.joining}</td>
+              </tr>            
+      )
         return(
             <div className="workerdescription">
             <div className="workertableheader">
@@ -23,18 +56,7 @@ class Workersearch extends React.Component{
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><p> John Doe </p></td>
-                  <td>03002527387</td>
-                  <td>11-08-2018</td>
-                </tr>
-
-                 <tr>
-                  <td><p> John Doe </p></td>
-                  <td>03002527387</td>
-                  <td>11-08-2018</td>
-                </tr>
-
+              {workers}
               </tbody>
             </table>
           </div>

@@ -44,8 +44,25 @@ a.workerlink {
     cursor: pointer
 }
 
+a.offerlink{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    margin: 0 auto;
+    width: 100%;
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer
+}
+
 @media(max-width:700px){
     a.workerlink{
+        justify-content: center
+    }
+
+    a.offerlink{
         justify-content: center
     }
     .sidebaritem a span{

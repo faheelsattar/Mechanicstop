@@ -1,6 +1,5 @@
 import React from 'react'
 import './formsignup.css'
-import { request } from 'http';
 
 class Formsignup extends React.Component{
     constructor(props){
@@ -17,18 +16,40 @@ class Formsignup extends React.Component{
                 longitude: "",
                 phone_nocompany: "",
                 status: "",
-                company_passcode:""
+                company_passcode:"",
+                notvalidfields:[],
+                validity:false
         }
         this.handleData=this.handleData.bind(this)
     }
-    handleData=(event)=>{
-        event.preventDefault()
-        this.setState({
-            [event.target.name]:event.target.value
-        })
+    remove=(array, element)=> {
+        return array.filter(el => el !== element);
     }
 
+    handleData=(event)=>{
+        event.preventDefault()
+        if(!event.target.checkValidity()){
+            console.log(event.target.name)
+            this.state.notvalidfields.push(event.target.name)
+            console.log(this.state.notvalidfields)
+        }else{
+            console.log(this.remove(this.state.notvalidfields,event.target.name))
+        this.setState({
+            [event.target.name]:event.target.value,
+            notvalidfields:this.remove(this.state.notvalidfields,event.target.name)
+        })
+    }
+    }
+
+    checkValidation=()=>{
+        if(this.state.notvalidfields.length==0){
+            return true
+        }else{
+            return false;
+        }
+    }
     registerUser= (event)=>{
+        if(this.checkValidation() && this.state.user_id !='' && this.state.user_name!='' && this.state.user_passcode !='' ){
         event.preventDefault()
         const headers= new Headers()   
         headers.append('Content-Type','application/json')
@@ -49,9 +70,19 @@ class Formsignup extends React.Component{
         .then(response => console.log(response.status))
         .then(response => console.log(response.status))
         .catch(error => console.log('Authorization failed : ' + error.message))
-    }   
+        this.setState({
+            validity:true
+        })
+    } else{
+        this.setState({
+            validity:false
+        })
+    }  
+        }
 
-    registerCompany=(event)=>{
+    registerCompany=(event)=>{  
+        if(this.checkValidation() && this.state.company_id && this.state.company_name && this.state.latitude
+        && this.state.longitude && this.state.phone_nocompany && this.state.company_passcode){
         event.preventDefault()
         const headers= new Headers()   
         headers.append('Content-Type','application/json')
@@ -74,30 +105,44 @@ class Formsignup extends React.Component{
         .then(response => console.log(response.status))
         .then(response => console.log(response.status))
         .catch(error => console.log('Authorization failed : ' + error.message))
+        this.setState({
+            validity:true
+        })
+    }else{
+        this.setState({
+            validity:false
+        })
+    }
     }
     render(){
         return(
             <div>
+            {
+                !this.state.validity ? null
+                :
+                <div className="regalert alert alert-success" role="alert">
+                {`${this.state.user_id} is register succesfully`}
+                </div> 
+            }
                 {
                     this.state.name =='user'?
                     <form className="md-form signupform">
-                        <input className="form-control inpuser" name="user_id" onChange={this.handleData} placeholder="Email" type="email"/>
-                        <input className="form-control inpuser" name="user_name" onChange={this.handleData} placeholder="Full name" type="text"/>
-                        <input className="form-control inpuser" name="phone_nouser" onChange={this.handleData} placeholder="Phone no" type="number"/>
-                        <input className="form-control inpuser" name="user_passcode" onChange={this.handleData} placeholder="Password" type="password"/>
-                        <button className="form-control signupuserbtn btn-primary " onClick={this.registerUser}>Sign up</button>
+                        <input className="form-control inpuser" name="user_id" onChange={this.handleData} placeholder="Email" type="email" required/>
+                        <input className="form-control inpuser" name="user_name" onChange={this.handleData} placeholder="Full name" type="text" required/>
+                        <input className="form-control inpuser" name="phone_nouser" onChange={this.handleData} placeholder="Phone no" type="number"  required/>
+                        <input className="form-control inpuser" name="user_passcode" onChange={this.handleData} placeholder="Password" type="password" minLength="6" maxLength="20" required/>
+                        <button className="form-control signupuserbtn btn-primary" type="submit" onClick={this.registerUser}>Sign up</button>
                     </form>
                     :
                     <form className="md-form signupform">
-                        <input className="form-control inpcomp" name="company_id" onChange={this.handleData} placeholder="Email" type="email"/>
-                        <input className="form-control inpcomp" name="company_name" onChange={this.handleData} placeholder="Company name" type="text"/>
-                        <input className="form-control inpcomp" name="latitude" onChange={this.handleData} placeholder="Latitude" type="number"/>
-                        <input className="form-control inpcomp" name="longitude" onChange={this.handleData} placeholder="Longitude" type="number"/>
-                        <input className="form-control inpcomp" name="phone_nocompany" onChange={this.handleData} placeholder="Phone no" type="number"/>
-                        <input className="form-control inpcomp" name="status" onChange={this.handleData} placeholder="status" type="number"/>
-                        <input className="form-control inpcomp" name="company_passcode" onChange={this.handleData} placeholder="Password" type="password"/>
-                        <button className="form-control signupcompanybtn btn-primary"onClick={this.registerCompany}>Sign up</button>
-                    {console.log(this.state.company)}
+                        <input className="form-control inpcomp" name="company_id" onChange={this.handleData} placeholder="Email" type="email" required/>
+                        <input className="form-control inpcomp" name="company_name" onChange={this.handleData} placeholder="Company name" type="text" required/>
+                        <input className="form-control inpcomp" name="latitude" onChange={this.handleData} placeholder="Latitude" type="number" step="any" required/>
+                        <input className="form-control inpcomp" name="longitude" onChange={this.handleData} placeholder="Longitude" type="number" step="any" required/>
+                        <input className="form-control inpcomp" name="phone_nocompany" onChange={this.handleData} placeholder="Phone no" type="number" required/>
+                        <input className="form-control inpcomp" name="status" onChange={this.handleData} placeholder="status" type="number" required/>
+                        <input className="form-control inpcomp" name="company_passcode" onChange={this.handleData} placeholder="Password" minLength="6" maxLength="20" type="password" required/>
+                        <button className="form-control signupcompanybtn btn-primary" onClick={this.registerCompany}>Sign up</button>
                     </form>
                     
                 }

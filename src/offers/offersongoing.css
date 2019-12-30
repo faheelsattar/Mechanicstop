@@ -1,0 +1,76 @@
+.offersongoing{
+    border: none;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    background-color: rgb(240, 238, 238);
+    background-clip: border-box;
+    margin-top: 30px;
+    width: 95%;
+    margin:0 auto;
+    margin-bottom: 50px;
+    padding:20px
+}
+
+.companyofferimg{
+    width: 50px;
+}
+
+.offerdetails{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    word-wrap: break-word;
+}
+.offerholder{
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    padding:20px;
+    background-image: url("/images/companyimgoffer.png");
+    background-repeat:repeat;
+    background-blend-mode:lighten;
+    margin-bottom: 20px;
+    margin-top: 20px
+}
+
+.offerfootercontent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.offerfooter{
+    margin-top:5px;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+}
+
+.details div{
+    margin-right: 10px
+}
+.offerdate{
+    display: flex;
+    align-items: center;
+}
+
+.offerenddate{
+    margin-top:1rem
+}
+.offer{
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
+
+@media (max-width:600px){
+    .offerfootercontent{
+        display: block
+    }
+
+    .offerdate{
+        justify-content: flex-end
+    }
+}
+

@@ -1,0 +1,32 @@
+.allnotifications{
+    margin-top: 130px;
+}
+
+.allnotificationbody{
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    background-color: #fff;
+    background-clip: border-box;
+    margin-bottom: 30px
+}
+
+.allnotificationimagesholder{
+    display: flex;
+}
+.allnotificationfooter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:10px;
+    margin-bottom: 10px
+}
+
+.companytoolimg > p {
+    margin-left: 5px
+}
+
+.allnotificationbody:hover{
+    background-color:rgb(241, 241, 241)
+}

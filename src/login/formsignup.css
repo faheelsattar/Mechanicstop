@@ -12,3 +12,10 @@
 .signupuserbtn, .signupcompanybtn{
     margin-top:10px;
 }
+.regalert{
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    text-align: center;
+}

@@ -1,4 +1,4 @@
-.workersignup{
+.createoffer{
     margin-top:20px;
     border-radius: 10px;
     border: none;
@@ -8,7 +8,7 @@
     margin:0 auto;
 }
 
-.workersignupbtn{
+.createofferbtn{
     border: 1px solid #69677a;
     border-radius: .25rem;
     color: #393842;
@@ -27,23 +27,27 @@
     border-right: hidden;
 }
 
-.signupform{
+.offerform{
     margin-top: 10px;
     border-radius: 0;
     padding-left: 20px;
     padding-right:20px
 }
 
-.workersignupbtn:hover{
+.createofferbtn:hover{
     text-decoration: none
 }
 
-.signupworkerbtn{
+.offerbtn{
     margin-top:20px;
     margin-bottom: 20px;
 }
-.workerregalert{
-    width:100%;
-    text-align: center;
-    z-index: 1;
+
+.discount{
+    display: flex
+}
+
+.discheck{
+    height:20px;
+    width: 20px;
 }

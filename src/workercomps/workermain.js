@@ -11,7 +11,7 @@ class Workermain extends React.Component{
     constructor(){
         super()
         this.state={
-            comp:''
+            comp:'',
         }
         this.knowComponent= this.knowComponent.bind(this)
         }
@@ -21,10 +21,12 @@ class Workermain extends React.Component{
             comp:compo
         })
     }
+
+   
     render(){
         return(
             <div className="workermain">
-            <Workersidebar call={this.knowComponent}/>
+            <Workersidebar call={this.knowComponent} host="worker"/>
             <div className="workeroperations">
               {
                   this.state.comp == "register" || this.state.comp=="delete"?
@@ -34,6 +36,7 @@ class Workermain extends React.Component{
                   <Workerdelete/>
                   :
                   <div>
+                  {this.state.workers}
                     <Workersearch/>
                     <Workercards/>
                     <Workercharts/>

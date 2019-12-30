@@ -2,6 +2,7 @@ import React from 'react'
 import './navbar.css'
 import {Link} from 'react-router-dom'
 import Notifications from '../usercomps/notifications'
+import Notificationscompany from '../companycomps/notifications'
 class Navbar extends React.Component{
     constructor(){
         super()
@@ -15,6 +16,24 @@ class Navbar extends React.Component{
         this.setState({
             noticlick:!this.state.noticlick
         })
+    }
+    componentDidMount(){
+        this.getNotifications()
+    }
+        
+    getNotifications=async()=>{
+        const host=localStorage.getItem('Host')
+        console.log(host)
+        try{
+            const res = await fetch(`http://localhost:4000/requests/hostnotification?hostid=${host}`)
+            const data = await res.json()
+            console.log(data)
+            this.setState({
+                notification:data.Data
+            })
+        }catch(err){
+            console.log(err)
+        }
     }
     render(){   
         return(
@@ -37,7 +56,7 @@ class Navbar extends React.Component{
                 <ul className="navbar-nav navbnav2 ml-auto">  
                     <li className="nav-item navitem2 n">
                         <a onClick={this.handleNotificationToggle} className="nav-link nav2link" href="">Notifications</a>
-                        {this.state.noticlick ? <Notifications/> : <div></div> } 
+                        {this.state.noticlick ? <Notifications  data={this.state.notification}/> : <div></div> } 
                     </li>
                         
                     <li className="nav-item navitem2">
@@ -49,10 +68,10 @@ class Navbar extends React.Component{
                     </li>
                 </ul>
                 :
-                <ul className="navbar-nav navbnav2 ml-auto">  
-                    <li className="nav-item navitem2 n">
+                <ul className="navbar-nav navbnav2 ml-auto n">  
+                    <li className="nav-item navitem2">
                         <a onClick={this.handleNotificationToggle} className="nav-link nav2link" href="">Notifications</a>
-                        {this.state.noticlick ? <Notifications/> : <div></div> } 
+                        {this.state.noticlick ? <Notificationscompany data={this.state.notification}/> : <div></div> } 
                     </li>
                         
                     <li className="nav-item navitem2">
